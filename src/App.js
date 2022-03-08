@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
@@ -14,12 +14,6 @@ const NotFound = () => (
 );
 
 function App() {
-  let location = useLocation();
-  console.log(location);
-
-  let params = useParams();
-  console.log(params);
-
   return (
     <div>
       <Header />

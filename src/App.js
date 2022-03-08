@@ -2,12 +2,7 @@ import React from 'react';
 import { Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/homepage/homepage.component';
-
-const HatsPage = () => (
-  <div>
-    <h1>HATS page</h1>
-  </div>
-);
+import ShopPage from './pages/shop/shop.component';
 
 const NotFound = () => (
   <div>
@@ -27,7 +22,7 @@ function App() {
     <div>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/shop/hats' element={<HatsPage />} />
+        <Route path='/shop' element={<ShopPage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>

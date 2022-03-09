@@ -9,6 +9,18 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
+const HatsPage = () => (
+  <div>
+    <h1>HATS page</h1>
+  </div>
+);
+
+const JacketsPage = () => (
+  <div>
+    <h1>JACKETS page</h1>
+  </div>
+);
+
 const NotFound = () => (
   <div>
     <h1>NOT FOUND!</h1>
@@ -56,8 +68,10 @@ class App extends React.Component {
         <Header currentUser={this.state.currentUser} />
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/shop' element={<ShopPage />} />
           <Route path='/signin' element={<SignInAndSignUpPage />} />
+          <Route path='shop' element={<ShopPage />} />
+          <Route path='shop/hats' element={<HatsPage />} />
+          <Route path='shop/jackets' element={<JacketsPage />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>

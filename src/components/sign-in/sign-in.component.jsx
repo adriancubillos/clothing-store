@@ -28,7 +28,8 @@ class SignIn extends Component {
         password: '',
       });
     } catch (error) {
-      console.error(error);
+      if (error.code === 'auth/user-not-found') alert('USER NOT FOUND');
+      console.log({ error });
     }
   };
 

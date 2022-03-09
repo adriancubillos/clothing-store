@@ -1,12 +1,13 @@
+import { onAuthStateChanged } from 'firebase/auth';
+import { getDoc } from 'firebase/firestore';
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header.component';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth } from './firebase/firebase.utils';
-import { onAuthStateChanged } from 'firebase/auth';
 
 const NotFound = () => (
   <div>
@@ -27,11 +28,21 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = onAuthStateChanged(auth, (user) => {
-      this.setState(() => {
-        return { currentUser: user };
-      });
-      console.log(user);
+    this.unsubscribeFromAuth = onAuthStateChanged(auth, async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        const snapshot = await getDoc(userRef);
+        if (snapshot.exists()) {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data(),
+            },
+          });
+        }
+      } else {
+        this.setState({ currentUser: userAuth });
+      }
     });
   }
 

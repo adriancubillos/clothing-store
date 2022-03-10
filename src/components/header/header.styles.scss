@@ -1,3 +1,12 @@
+$accent-color: crimson;
+
+@mixin userName {
+    color: $accent-color;
+    font-size: small;
+    text-align: center;
+    text-decoration: underline;
+}
+
 .header {
     height: 70px;
     width: 100%;
@@ -21,6 +30,17 @@
         .option {
             padding: 10px 15px;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+
+            .display-name {
+                @include userName();
+
+                &:hover {
+                    transform: scale(1.5);
+                    transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+                }
+            }
         }
     }
 }

@@ -1,10 +1,11 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase/firebase.utils';
+import React from 'react';
 import { connect } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-
+import { auth } from '../../firebase/firebase.utils';
+import CartDropDown from '../cart-dropdown/cart-dropdown.component';
+import CartIcon from '../cart-icon/cart-icon.component';
 import './header.styles.scss';
 
 const Header = ({ currentUser }) => {
@@ -37,13 +38,16 @@ const Header = ({ currentUser }) => {
             }}
           >
             SIGN OUT
+            <span className='display-name'>{currentUser.displayName}</span>
           </div>
         ) : (
           <Link className='option' to='/signin'>
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      <CartDropDown />
     </div>
   );
 };

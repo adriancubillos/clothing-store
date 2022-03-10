@@ -2,7 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { getDoc } from 'firebase/firestore';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
@@ -56,12 +56,18 @@ class App extends React.Component {
   }
 
   render() {
+    const element = this.props.currentUser ? (
+      <Navigate replace to='/' />
+    ) : (
+      <SignInAndSignUpPage />
+    );
+
     return (
       <div>
         <Header />
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/signin' element={<SignInAndSignUpPage />} />
+          <Route path='/signin' element={element} />
           <Route path='shop' element={<ShopPage />} />
           <Route path='shop/hats' element={<HatsPage />} />
           <Route path='shop/jackets' element={<JacketsPage />} />
@@ -72,8 +78,12 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onSetCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

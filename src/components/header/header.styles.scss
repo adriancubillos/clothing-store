@@ -3,7 +3,8 @@ $accent-color: crimson;
 @mixin userName {
     color: $accent-color;
     font-size: small;
-    text-align: center;
+    display: flex;
+    justify-content: center;
     text-decoration: underline;
 }
 
